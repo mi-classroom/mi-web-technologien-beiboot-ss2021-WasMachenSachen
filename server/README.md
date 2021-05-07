@@ -1,16 +1,28 @@
+# Installation
+Voraussetzungen:
+- Docker  
+- bzw. NodeJS & NPM
 
-## Benutzung 
+>Über die `.env`-Datei können individuelle Werte für den Server gesetzt werden. Näheres im [README](server/README.md) für den Server. Dafür kann die Beispieldaten [.example.env](server/example.env) in `.env` umbennant werden. Ohne diese wird auf die Standardparameter zurückgegriffen.
+
+## Benutzung Manuell
 
 ```bash 
-  npm install 
-  npm run start
+cd ./server
+npm install 
+npm run start
 ```
-`.env`-Datei muss vorhanden sein mit folgenden Werten:
 
-`SERVER_PORT`
+## Benutzung mit Docker
 
-`DATA_DIR` 
+```bash
+cd ./server
 
-`FILE_PATTERN`
+# Docker Image aus Dockerfile erstellen:
+docker build -t <image-name> . 
+# . stellt in diesem Fall das aktuelle Directory dar
 
-Siehe [example.env](./example.env)
+#Docker Image starten:
+docker run -p <port>:3030 -v <pfad-zum-data-dir>:/data <image-name>
+
+```
