@@ -1,10 +1,8 @@
 require("dotenv").config();
-const fs = require("fs");
 const path = require("path");
 const http = require("http");
 const express = require("express");
 const logger = require("morgan");
-const os = require("os");
 const cors = require("cors");
 const dirTree = require("./lib/directory-tree");
 
