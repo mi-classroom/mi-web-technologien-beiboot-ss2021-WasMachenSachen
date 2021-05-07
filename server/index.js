@@ -12,8 +12,8 @@ const app = express();
 app.use(cors());
 app.use(logger("dev"));
 
-const dirEntry = process.env.DATA_DIR;
-const filePattern = process.env.FILE_PATTERN;
+const dirEntry = process.env.DATA_DIR || "../data";
+const filePattern = process.env.FILE_PATTERN || ".(jpg|jpeg)";
 
 const fileTree = dirTree(path.join(dirEntry), {
   filePattern: new RegExp(filePattern),
@@ -26,10 +26,7 @@ app.get("/", (req, res) => {
 
 app.use("/data/", express.static(path.join(__dirname, "../data")));
 
+const port = process.env.SERVER_PORT || 3030;
 let server = http.createServer(app);
-server.listen(process.env.SERVER_PORT);
-console.log(
-  `http://${os.hostname()}:${
-    process.env.SERVER_PORT
-  }  Server gestartet. Auf Port: ${process.env.SERVER_PORT}`
-);
+server.listen(port);
+console.log(`http://localhost:${port}  Server gestartet. Auf Port: ${port}`);
