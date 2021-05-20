@@ -27,7 +27,7 @@
 
 <script>
 import { FolderIcon, ChevronRightIcon } from "@heroicons/vue/solid";
-import { ref } from "@vue/reactivity";
+import { ref, toRef } from "@vue/reactivity";
 import File from "./File.vue";
 
 export default {
@@ -38,9 +38,11 @@ export default {
   },
   props: {
     data: Object,
+    isOpen: Boolean,
   },
-  setup() {
-    var isOpen = ref(false);
+  setup(props) {
+    const defaultOpen = toRef(props, "isOpen");
+    var isOpen = ref(defaultOpen.value ?? false);
     return {
       isOpen,
     };

@@ -1,5 +1,5 @@
 <template>
-  <Directory :data="dirStructure.data"></Directory>
+  <Directory :data="dirStructure.data" :isOpen="true"></Directory>
 </template>
 
 <script>
