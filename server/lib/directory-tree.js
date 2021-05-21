@@ -100,20 +100,33 @@ function directoryTree(path, options, onEachFile, onEachDirectory) {
         item[attribute] = stats[attribute];
       });
     }
-    item.children = dirData
-      .map((child) =>
-        directoryTree(
-          PATH.join(path, child),
-          options,
-          onEachFile,
-          onEachDirectory
-        )
-      )
-      .filter((e) => !!e);
-    item.size = item.children.reduce((prev, cur) => prev + cur.size, 0);
+    // update options object and decrease depth by one
+    const updatedOptions =
+      options && options.depth >= 0
+        ? { ...options, depth: Number(options.depth) - 1 }
+        : options;
+
     item.type = constants.DIRECTORY;
-    if (onEachDirectory) {
-      onEachDirectory(item, path, stats);
+    if (options && options.depth && options.depth < 0) {
+      if (dirData.length) {
+        item.children = [];
+      }
+      item.size = 0;
+    } else {
+      item.children = dirData
+        .map((child) =>
+          directoryTree(
+            PATH.join(path, child),
+            updatedOptions,
+            onEachFile,
+            onEachDirectory
+          )
+        )
+        .filter((e) => !!e);
+      item.size = item.children.reduce((prev, cur) => prev + cur.size, 0);
+      if (onEachDirectory) {
+        onEachDirectory(item, path, stats);
+      }
     }
   } else {
     return null; // Or set item.size = 0 for devices, FIFO and sockets ?
