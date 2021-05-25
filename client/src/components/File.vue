@@ -1,7 +1,7 @@
 <template>
   <button class="flex items-center" @click="setImageViewer">
     <PhotographIcon class="w-5 h-5 text-blue-500" />
-    <span class="pl-1">
+    <span class="pl-1 whitespace-nowrap">
       {{ data.name }}
     </span>
   </button>
