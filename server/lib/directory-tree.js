@@ -77,8 +77,9 @@ function directoryTree(path, options, onEachFile, onEachDirectory) {
       return null;
     if (options && options.filePattern && !options.filePattern.test(path))
       return null;
-
-    item.size = stats.size; // File size in bytes
+    // Skip size for now
+    // FEATURE: make size optional via options parameter
+    // item.size = stats.size; // File size in bytes
     item.extension = ext;
     item.type = constants.FILE;
 
@@ -111,7 +112,8 @@ function directoryTree(path, options, onEachFile, onEachDirectory) {
       if (dirData.length) {
         item.children = [];
       }
-      item.size = 0;
+      // Skip size for now
+      // item.size = 0;
     } else {
       item.children = dirData
         .map((child) =>
@@ -123,7 +125,8 @@ function directoryTree(path, options, onEachFile, onEachDirectory) {
           )
         )
         .filter((e) => !!e);
-      item.size = item.children.reduce((prev, cur) => prev + cur.size, 0);
+      // Skip size for now
+      // item.size = item.children.reduce((prev, cur) => prev + cur.size, 0);
       if (onEachDirectory) {
         onEachDirectory(item, path, stats);
       }
