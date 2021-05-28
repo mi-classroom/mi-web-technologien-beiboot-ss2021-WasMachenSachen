@@ -71,6 +71,7 @@ export default {
     function resetSearch() {
       searchPattern.value = "";
       sharedState.resetDirectoryData();
+      sharedState.resetFileData();
     }
     async function initiateSearch() {
       const directoryList = sharedState.getDirectoryData;
@@ -90,6 +91,9 @@ export default {
       }
     }
     watch(searchPattern, (currentValue, oldValue) => {
+      if (currentValue === "") {
+      resetSearch();
+    }
       let tempSearchResult = fuseDirectory.search(currentValue);
       let searchResult = [];
       tempSearchResult.forEach((e) => {

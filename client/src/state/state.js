@@ -39,6 +39,9 @@ function setFileList(fileList) {
 function resetDirectoryData() {
   setDirectoryData(defaultDirectoryData.directoryData);
 }
+function resetFileData() {
+  setFileList([])
+}
 async function loadDirectoryData() {
   try {
     const response = await axios.get(`${config.baseUrl}/dir-structure/base`);
@@ -58,6 +61,7 @@ export const sharedState = {
   loadDirectoryData,
   getDirectoryData,
   resetDirectoryData,
+  resetFileData,
   setFileList,
   getFileList,
 };

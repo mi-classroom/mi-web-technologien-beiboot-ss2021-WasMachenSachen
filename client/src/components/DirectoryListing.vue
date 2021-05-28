@@ -9,7 +9,7 @@
     ></Directory>
     <div v-if="fileList.length > 0">
       <Divider text="Bilder" />
-      <File v-for="n in resultSize" :data="fileList[n]" :key="n"></File>
+      <File v-for="n in resultSize" :data="fileList[n-1]" :key="n"></File>
       <div class="flex justify-between mt-5">
         <p>{{ resultSize }} von {{ fileList.length }} Ergebnissen</p>
         <button @click="increaseResultList(10)">Mehr anzeigen</button>
@@ -38,7 +38,7 @@ export default {
     function increaseResultList(addition) {
       let newResultSize =
         resultSize.value + addition > fileList.value.length
-          ? fileList.value.length - 1
+          ? fileList.value.length
           : resultSize.value + addition;
       resultSize.value = newResultSize;
     }
