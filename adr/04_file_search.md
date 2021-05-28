@@ -44,6 +44,6 @@ Ebenfalls ist die Frage zu klären wie die Suchergebnisse dargestellt werden.
 
 Entscheidung: Keine Backendsuche. Dadurch wird eine höhere Flexibilität und Geschwindikeit erwartet. Da nur initial einmal die Dateistruktur angefragt werden muss um dann im Client diese zu durchsuchen und zu manipulieren.
 
-Für die Frontendsuche wird FuseJS genutzt. Größter Vorteil gegenüber den betrachteten Alternativen ist die Möglichkeit verschachtelte Objekte zu durchsuchen. Danaben bietet FuseJS die möglichkeit die Suche über Regex zu verfeinern, siehe [hier](https://fusejs.io/examples.html#weighted-search).
+Für die Frontendsuche wird FuseJS genutzt. Größter Vorteil gegenüber den betrachteten Alternativen ist die Möglichkeit verschachtelte Objekte zu durchsuchen. Daneben bietet FuseJS die Möglichkeit, die Suche über Regex zu verfeinern. Siehe [hier](https://fusejs.io/examples.html#weighted-search).
 
 Für die Darstellung der Suchergebnisse wird ein gemischter Ansatz verfolgt. Die Grundlegende Ordnerstruktur wird so manipuliert das nur Ordner angezeigt werden die dem Suchmuster entsprechen. Darunter soll eine Auflistung der Dateien dargestellt werden welche ebenfalls dem Suchmuster entsprechen.
