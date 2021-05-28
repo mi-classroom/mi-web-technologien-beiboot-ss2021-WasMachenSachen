@@ -12,7 +12,7 @@
       <File v-for="n in resultSize" :data="fileList[n]" :key="n"></File>
       <div class="flex justify-between mt-5">
         <p>{{ resultSize }} von {{ fileList.length }} Ergebnissen</p>
-        <button @click="increaseResultList">Mehr anzeigen</button>
+        <button @click="increaseResultList(10)">Mehr anzeigen</button>
       </div>
     </div>
   </div>
@@ -24,23 +24,29 @@ import File from "./File.vue";
 import Divider from "./Divider.vue";
 import { sharedState } from "../state/state";
 import { ref } from "@vue/reactivity";
+import { watch } from "@vue/runtime-core";
 
 export default {
   components: { Directory, File, Divider },
   setup() {
     const fileList = sharedState.getFileList;
-    let resultSize = ref(40);
+    let resultSize = ref(0);
     /* Initiate loading of directory Structure */
     sharedState.loadDirectoryData();
     const dirStructure = sharedState.getDirectoryData;
 
-    function increaseResultList() {
+    function increaseResultList(addition) {
       let newResultSize =
-        resultSize.value + 10 > fileList.value.length
+        resultSize.value + addition > fileList.value.length
           ? fileList.value.length - 1
-          : resultSize.value + 10;
+          : resultSize.value + addition;
       resultSize.value = newResultSize;
     }
+    watch(fileList, (currentValue, oldValue) => {
+      if (currentValue.length && currentValue.length > 0 && resultSize.value === 0) {
+        increaseResultList(40);
+      }
+    });
     return { dirStructure, fileList, resultSize, increaseResultList };
   },
 };

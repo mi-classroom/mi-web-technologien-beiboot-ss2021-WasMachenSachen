@@ -112,7 +112,9 @@ export default {
       tempSearchResult2.forEach((e) => {
         searchResult2.push(e.item);
       });
-      sharedState.setFileList(searchResult2);
+      if(searchResult2.length > 0){
+        sharedState.setFileList(searchResult2);
+      }
     });
     return { showHelp, searchPattern, resetSearch, initiateSearch };
   },
