@@ -2,30 +2,32 @@
   <main ref="main" class="h-screen overflow-hidden">
     <header ref="header">
       <h1 class="text-xl text-center">Beiboot Client</h1>
-      <!-- <SeachBar /> -->
+      <SeachBar />
     </header>
     <div class="grid grid-cols-2">
       <DirectoryListing
-        class="overflow-y-scroll"
+        class="pb-10 overflow-y-scroll"
         :style="{ height: directoryHeight + 'px' }"
       ></DirectoryListing>
       <ImageViewer></ImageViewer>
     </div>
-    <!-- <InfoBar /> -->
+    <InfoBar />
   </main>
 </template>
 
 <script>
 import DirectoryListing from "./components/DirectoryListing.vue";
 import ImageViewer from "./components/ImageViewer.vue";
-// import SeachBar from "./components/SearchBar.vue";
-// import InfoBar from "./components/InfoBar.vue";
+import SeachBar from "./components/SearchBar.vue";
+import InfoBar from "./components/InfoBar.vue";
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
 export default {
   components: {
     DirectoryListing,
     ImageViewer,
+    SeachBar,
+    InfoBar,
   },
   setup() {
     const main = ref(null);
