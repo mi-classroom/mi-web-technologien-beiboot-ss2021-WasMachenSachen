@@ -108,3 +108,4 @@ dist
 dist-ssr
 *.local
 .vscode
+data

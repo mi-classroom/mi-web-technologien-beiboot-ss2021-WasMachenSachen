@@ -2,8 +2,9 @@
   <div>
     <File v-if="data.type === 'file'" :data="data"></File>
     <button
-      class="flex items-center"
+      class="flex items-center pr-1"
       @click="isOpen = !isOpen"
+      @mousedown="getFolderContent(data.path, data.children.length)"
       v-else-if="data.type === 'directory'"
     >
       <ChevronRightIcon
@@ -11,7 +12,7 @@
         :class="{ 'rotate-90': isOpen }"
       />
       <FolderIcon class="w-5 h-5 text-blue-500" />
-      <span class="pl-1">
+      <span class="pl-1 whitespace-nowrap">
         {{ data.name }}
       </span>
     </button>
@@ -27,8 +28,10 @@
 
 <script>
 import { FolderIcon, ChevronRightIcon } from "@heroicons/vue/solid";
-import { ref } from "@vue/reactivity";
+import { ref, toRef } from "@vue/reactivity";
 import File from "./File.vue";
+import { config } from "../config";
+import axios from "axios";
 
 export default {
   components: {
@@ -38,11 +41,30 @@ export default {
   },
   props: {
     data: Object,
+    isOpen: Boolean,
   },
-  setup() {
-    var isOpen = ref(false);
+  setup(props) {
+    const defaultOpen = toRef(props, "isOpen");
+    var isOpen = ref(defaultOpen.value ?? false);
+
+    async function getFolderContent(path, childs) {
+      console.log(path);
+      console.log(childs);
+      if (childs > 0) return;
+      try {
+        const url = `${config.baseUrl}/dir-structure/custom?path=${path}`;
+        const response = await axios.get(url);
+        // dirStructure.data = response.data;
+        /* FEATURE: display message if folder stays empty */
+        console.log(response.data);
+        props.data.children = response.data.children;
+      } catch (error) {
+        console.error(error);
+      }
+    }
     return {
       isOpen,
+      getFolderContent,
     };
   },
 };

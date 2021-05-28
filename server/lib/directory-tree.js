@@ -77,8 +77,9 @@ function directoryTree(path, options, onEachFile, onEachDirectory) {
       return null;
     if (options && options.filePattern && !options.filePattern.test(path))
       return null;
-
-    item.size = stats.size; // File size in bytes
+    // Skip size for now
+    // FEATURE: make size optional via options parameter
+    // item.size = stats.size; // File size in bytes
     item.extension = ext;
     item.type = constants.FILE;
 
@@ -100,20 +101,35 @@ function directoryTree(path, options, onEachFile, onEachDirectory) {
         item[attribute] = stats[attribute];
       });
     }
-    item.children = dirData
-      .map((child) =>
-        directoryTree(
-          PATH.join(path, child),
-          options,
-          onEachFile,
-          onEachDirectory
-        )
-      )
-      .filter((e) => !!e);
-    item.size = item.children.reduce((prev, cur) => prev + cur.size, 0);
+    // update options object and decrease depth by one
+    const updatedOptions =
+      options && options.depth >= 0
+        ? { ...options, depth: Number(options.depth) - 1 }
+        : options;
+
     item.type = constants.DIRECTORY;
-    if (onEachDirectory) {
-      onEachDirectory(item, path, stats);
+    if (options && options.depth && options.depth < 0) {
+      if (dirData.length) {
+        item.children = [];
+      }
+      // Skip size for now
+      // item.size = 0;
+    } else {
+      item.children = dirData
+        .map((child) =>
+          directoryTree(
+            PATH.join(path, child),
+            updatedOptions,
+            onEachFile,
+            onEachDirectory
+          )
+        )
+        .filter((e) => !!e);
+      // Skip size for now
+      // item.size = item.children.reduce((prev, cur) => prev + cur.size, 0);
+      if (onEachDirectory) {
+        onEachDirectory(item, path, stats);
+      }
     }
   } else {
     return null; // Or set item.size = 0 for devices, FIFO and sockets ?
