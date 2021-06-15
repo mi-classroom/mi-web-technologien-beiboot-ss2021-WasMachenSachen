@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute inset-x-0 bottom-0 w-full py-1 bg-white border-t-2">
+  <div class="absolute inset-x-0 bottom-0 w-full h-6 py-1 bg-white border-t-2">
     <div class="flex flex-wrap items-center max-w-full overflow-hidden">
       <span
         v-for="(item, index) in path"

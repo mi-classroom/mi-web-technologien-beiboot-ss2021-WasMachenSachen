@@ -27,3 +27,4 @@ Der Einstiegspunkt für den Client liegt unter [http://localhost:5000](http://lo
 
 - Issue 1: 10h
 - Issue 2: 5h
+- Issue 2: 20h

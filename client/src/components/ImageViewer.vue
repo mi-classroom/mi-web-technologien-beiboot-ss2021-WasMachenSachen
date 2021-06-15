@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <img :src="newImgUrl" alt="" class="max-h-96" />
-    <ul class="mt-5">
-      <li v-for="(value, name, index) in imgTags.value" :key="index">
-        {{ name }}: {{ value }}
-      </li>
-    </ul>
+  <div class="grid grid-rows-3">
+    <div class="row-span-2"><img :src="newImgUrl" alt="" class="w-auto max-h-full mx-auto" /></div>
+    <div>
+      <ul class="mt-5">
+        <li v-for="(value, name, index) in imgTags.value" :key="index">
+          {{ name }}: {{ value }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
