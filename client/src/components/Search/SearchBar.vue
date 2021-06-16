@@ -52,9 +52,9 @@ import { watch, ref } from "vue";
 import Fuse from "fuse.js";
 import axios from "axios";
 
-import { sharedState } from "../state/state";
-import { config } from "../config";
-import { searchOptions } from "../helper/fuse.js";
+import { sharedState } from "../../state/state";
+import { config } from "../../config";
+import { searchOptions } from "../../helper/fuse.js";
 
 export default {
   components: {

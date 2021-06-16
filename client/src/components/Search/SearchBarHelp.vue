@@ -310,7 +310,7 @@
 </template>
 
 <script>
-import Divider from "./Divider.vue";
+import Divider from "../Divider.vue";
 
 export default {
   components: { Divider },
