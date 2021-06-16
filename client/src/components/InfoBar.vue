@@ -10,6 +10,7 @@
           class="w-4 h-4 text-blue-500"
           v-if="index != path.length - 1"
         />
+        <!-- TODO: show different Icon for json -->
         <PhotographIcon
           class="w-4 h-4 text-black"
           v-if="index == path.length - 1"
@@ -29,15 +30,21 @@ import {
   FolderIcon,
   ChevronRightIcon,
   PhotographIcon,
+  InformationCircleIcon,
 } from "@heroicons/vue/solid";
 import emitter from "tiny-emitter/instance";
-import { ref } from "@vue/reactivity";
+import { reactive, ref } from "@vue/reactivity";
 
 export default {
-  components: { FolderIcon, ChevronRightIcon, PhotographIcon },
+  components: {
+    FolderIcon,
+    ChevronRightIcon,
+    PhotographIcon,
+    InformationCircleIcon,
+  },
   setup() {
     let path = ref([]);
-    emitter.on("updateInfoBar", function (url) {
+    emitter.on("updateInfoBar", function (url, type) {
       path.value = url.split("/");
     });
     return { path };

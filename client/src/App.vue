@@ -8,7 +8,7 @@
         <DirectoryListing
           class="h-full overflow-y-scroll md:col-span-2 lg:col-span-1"
         ></DirectoryListing>
-        <ImageViewer></ImageViewer>
+        <SideBar />
       </div>
     <InfoBar />
   </main>
@@ -16,17 +16,19 @@
 
 <script>
 import DirectoryListing from "./components/DirectoryListing.vue";
-import ImageViewer from "./components/ImageViewer.vue";
-import SeachBar from "./components/SearchBar.vue";
+import SeachBar from "./components/Search/SearchBar.vue";
 import InfoBar from "./components/InfoBar.vue";
+import SideBar from "./components/SideBar.vue";
+
 export default {
   components: {
     DirectoryListing,
-    ImageViewer,
+    SideBar,
     SeachBar,
-    InfoBar,
+    InfoBar
   },
   setup() {
+
     return {};
   },
 };
