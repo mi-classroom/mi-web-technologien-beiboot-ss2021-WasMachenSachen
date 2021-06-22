@@ -1,5 +1,5 @@
 <template>
-  <Json v-for="(item, key) in json" :name="key" :value="item" :open="true" />
+  <Json v-for="(item, key, index) in json" :name="key" :value="item" :open="true" :key="index"/>
 </template>
 
 <script>

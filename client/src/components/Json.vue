@@ -9,7 +9,7 @@
           class="pl-1"
           :class="{ 'ml-2.5 border-l border-dotted': open }"
         >
-          <li v-for="(item, key) in value">
+          <li v-for="(item, key, index) in value" :key="index">
             <Json :value="item" :name="key" :open="false" />
           </li>
         </ul>
