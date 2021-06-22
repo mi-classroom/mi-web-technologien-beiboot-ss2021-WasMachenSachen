@@ -17,10 +17,7 @@ export default {
   setup(props) {
     const currentView = ref('image')
     emitter.on("changeSideBar", function (view) {
-      console.log(view);
-      console.log(currentView.value);
       currentView.value = view;
-      console.log(currentView.value);
     });
     return {currentView};
   },
