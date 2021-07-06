@@ -1,62 +1,35 @@
 <template>
-  <main ref="main" class="h-screen overflow-hidden">
-    <header ref="header">
+  <main class="container h-screen mx-auto overflow-hidden">
+    <header>
       <h1 class="text-xl text-center">Beiboot Client</h1>
       <SeachBar />
     </header>
-    <div class="grid grid-cols-2">
-      <DirectoryListing
-        class="pb-10 overflow-y-scroll"
-        :style="{ height: directoryHeight + 'px' }"
-      ></DirectoryListing>
-      <ImageViewer></ImageViewer>
-    </div>
+      <div class="grid max-h-full grid-cols-1 grid-rows-2 pt-2 pb-32 md:grid-rows-1 md:grid-cols-3 lg:grid-cols-2">
+        <DirectoryListing
+          class="h-full overflow-y-scroll md:col-span-2 lg:col-span-1"
+        ></DirectoryListing>
+        <SideBar />
+      </div>
     <InfoBar />
   </main>
 </template>
 
 <script>
 import DirectoryListing from "./components/DirectoryListing.vue";
-import ImageViewer from "./components/ImageViewer.vue";
-import SeachBar from "./components/SearchBar.vue";
+import SeachBar from "./components/Search/SearchBar.vue";
 import InfoBar from "./components/InfoBar.vue";
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import SideBar from "./components/SideBar.vue";
 
 export default {
   components: {
     DirectoryListing,
-    ImageViewer,
+    SideBar,
     SeachBar,
-    InfoBar,
+    InfoBar
   },
   setup() {
-    const main = ref(null);
-    const header = ref(null);
-    let directoryHeight = ref(null);
-    const delay = 250;
-    let timeout = false;
 
-    onMounted(() => {
-      /* set the size of directoryListing based on viewport height minus the height of the heading */
-      calculateDirectoryHeight();
-      /* change directoryListing height if viewport is resized */
-      window.addEventListener("resize", function () {
-        clearTimeout(timeout);
-        /*  debounce the calculation for performance reasons:
-            https://bencentra.com/code/2015/02/27/optimizing-window-resize.html
-        */
-        timeout = setTimeout(calculateDirectoryHeight, delay);
-      });
-    });
-    onBeforeUnmount(() => {
-      window.removeEventListener("resize", calculateDirectoryHeight);
-    });
-    const calculateDirectoryHeight = () => {
-      let mainHeight = main.value.clientHeight;
-      let headerHeight = header.value.clientHeight;
-      directoryHeight.value = mainHeight - headerHeight;
-    };
-    return { main, header, directoryHeight };
+    return {};
   },
 };
 </script>

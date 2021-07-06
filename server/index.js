@@ -12,7 +12,7 @@ app.use(cors());
 app.use(logger("dev"));
 
 const dirEntry = process.env.DATA_DIR ?? "../data";
-const filePattern = process.env.FILE_PATTERN ?? ".(jpg|jpeg)";
+const filePattern = process.env.FILE_PATTERN ?? ".(jpg|jpeg|json)";
 const port = process.env.SERVER_PORT ?? 3030;
 
 const fullFileTree = dirTree(path.join(dirEntry), {
