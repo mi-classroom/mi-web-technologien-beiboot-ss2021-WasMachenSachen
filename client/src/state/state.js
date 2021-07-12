@@ -40,15 +40,17 @@ function resetDirectoryData() {
   setDirectoryData(defaultDirectoryData.directoryData);
 }
 function resetFileData() {
-  setFileList([])
+  setFileList([]);
 }
 async function loadDirectoryData() {
   try {
     const response = await axios.get(`${config.baseUrl}/dir-structure/base`);
     console.log("Directory structure loaded");
     setDirectoryData(response.data);
+    return true;
   } catch (error) {
     console.error(error);
+    return false;
   }
 }
 
