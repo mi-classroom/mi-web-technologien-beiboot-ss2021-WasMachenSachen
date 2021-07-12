@@ -5,7 +5,7 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 const dirTree = require("./lib/directory-tree");
-const fs = require("fs");
+const getFileList = require("./helper");
 
 const app = express();
 app.use(cors());
@@ -24,20 +24,6 @@ const filteredFileTree = dirTree(path.join(dirEntry), {
   depth: 1,
 });
 
-function getFileList(currentPath) {
-  let fileList = [];
-  const files = fs.readdirSync(currentPath, { withFileTypes: true });
-  files.forEach((file) => {
-    const path = currentPath + "/" + file.name;
-    const name = file.name;
-    if (file.isDirectory()) {
-      fileList.push(...getFileList(path));
-    } else if (new RegExp(filePattern).test(path)) {
-      fileList.push({ path, name, type: "file" });
-    }
-  });
-  return fileList;
-}
 /* ROUTING */
 app.get("/dir-structure/full", (req, res) => {
   res.send(fullFileTree);
@@ -58,9 +44,11 @@ app.get("/dir-structure/custom/", (req, res) => {
   }
 });
 app.get("/dir-structure/file-list", (req, res) => {
-  res.send(getFileList("../data"));
+  res.send(getFileList("../data", filePattern));
 });
 app.use("/data/", express.static(path.join(__dirname, "../data")));
+
+app.use("/edit", require("./routing/metadataedit"));
 
 let server = http.createServer(app);
 server.listen(port);
