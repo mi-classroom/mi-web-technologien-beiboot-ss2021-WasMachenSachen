@@ -33,7 +33,7 @@ export default {
   setup(props) {
     function setImageViewer() {
       let imgUrl = `${config.baseUrl}${props.data.path.substring(2)}`;
-      emitter.emit("updateImageViewer", imgUrl);
+      emitter.emit("updateImageViewer", imgUrl, props.data.path);
       emitter.emit("changeSideBar", "image");
       setInfoBarPath();
     }
