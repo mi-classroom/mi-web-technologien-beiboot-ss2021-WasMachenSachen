@@ -7,7 +7,7 @@
       <span class="inline-flex items-center px-3 text-sm text-gray-500 border border-r-0 border-gray-300 rounded-l-md bg-gray-50">
         {{metaName}}
       </span>
-      <input type="text" :name="metaName" :id="metaName" class="flex-1 block w-full min-w-0 px-3 py-1.5 text-sm text-right border-gray-300 rounded-none rounded-r-md focus:ring-blue-500 focus:border-blue-500" :placeholder="metaValue" />
+      <input type="text" :name="metaName" :id="metaName" class="flex-1 block w-full min-w-0 px-3 py-1.5 text-sm text-right border-gray-300 rounded-none rounded-r-md focus:ring-blue-500 focus:border-blue-500" :value="metaValue" />
     </div>
   </div>
 </template>
