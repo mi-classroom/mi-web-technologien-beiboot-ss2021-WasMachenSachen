@@ -50,6 +50,8 @@ app.use("/data/", express.static(path.join(__dirname, "../data")));
 
 app.use("/edit", require("./routing/metadataedit"));
 
+app.use("/download", require("./routing/download"));
+
 let server = http.createServer(app);
 server.listen(port);
 console.log(`http://localhost:${port}  Server gestartet. Auf Port: ${port}`);
