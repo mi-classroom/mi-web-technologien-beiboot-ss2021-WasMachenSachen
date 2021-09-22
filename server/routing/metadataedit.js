@@ -47,6 +47,9 @@ function composeIptcDataObject(queryParams) {
     { name: "Country", iptcName: "Country-PrimaryLocationName" },
     { name: "Writer", iptcName: "Writer-Editor" },
     { name: "ApplicationRecordVersion", iptcName: "ApplicationRecordVersion" },
+    { name: "Headline", iptcName: "Headline" },
+    { name: "ImageDescription", iptcName: "ImageDescription" },
+    { name: "Source", iptcName: "Source" },
   ];
   let iptcDataObject = {};
   Object.keys(queryParams).forEach(function (key) {
