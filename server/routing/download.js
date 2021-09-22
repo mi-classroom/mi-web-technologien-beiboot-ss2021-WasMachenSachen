@@ -6,7 +6,6 @@ const path = require("path");
 router.use(zip());
 
 router.use("/:PATH", function (req, res) {
-  console.log(path.join(__dirname, "../../data/", req.params.PATH));
   res.zip({
     files: [
       {
