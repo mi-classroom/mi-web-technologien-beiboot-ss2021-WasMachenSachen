@@ -1,5 +1,10 @@
 /* https://exiftool.org/TagNames/IPTC.html */
+/*
+multilanguage is saved via stringified array, therefore at least 9 chars are blocked:
+'["...","..."]'
+ */
 const jsonStringifySize = 9;
+
 export const config = {
   baseUrl: "http://localhost:3030",
   imgTags: [
