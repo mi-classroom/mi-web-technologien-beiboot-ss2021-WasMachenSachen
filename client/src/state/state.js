@@ -4,7 +4,7 @@ import { config } from "../config";
 
 const state = ref({
   directoryData: {},
-  fileList: [],
+  directoryDataHistory: [],
 });
 /* STRUCTURE */
 /* directoryData: {
@@ -13,18 +13,12 @@ const state = ref({
   children: [...directoryData],
   type: "directory",
 }; */
-/* fileList: [
-  {
-    path: "../data",
-    name: "data",
-    type: "file",
-  },
-]; */
 
 const defaultDirectoryData = { directoryData: {} };
 
 function setDirectoryData(directoryData) {
   state.value.directoryData = directoryData;
+  setDirectoryDataHistory(directoryData);
   /* save original data structure to reset later if needed */
   if (
     Object.getOwnPropertyNames(defaultDirectoryData.directoryData).length <= 0
@@ -32,20 +26,32 @@ function setDirectoryData(directoryData) {
     defaultDirectoryData.directoryData = directoryData;
   }
 }
-
-function setFileList(fileList) {
-  state.value.fileList = fileList;
+function setDirectoryDataHistory(directoryDataHistory) {
+  /* prevent doubles in Histroy */
+  if (
+    state.value.directoryDataHistory.length > 0 &&
+    state.value.directoryDataHistory[
+      state.value.directoryDataHistory.length - 1
+    ].path === directoryDataHistory.path
+  )
+    return;
+  else {
+    state.value.directoryDataHistory.push(directoryDataHistory);
+  }
 }
+function removeDirectoryDataHistory() {
+  state.value.directoryDataHistory.pop();
+}
+
 function resetDirectoryData() {
   setDirectoryData(defaultDirectoryData.directoryData);
 }
-function resetFileData() {
-  setFileList([]);
+function resetDirectoryDataHistory() {
+  state.value.directoryDataHistory = [];
 }
 async function loadDirectoryData() {
   try {
     const response = await axios.get(`${config.baseUrl}/dir-structure/base`);
-    console.log("Directory structure loaded");
     setDirectoryData(response.data);
     return true;
   } catch (error) {
@@ -56,14 +62,17 @@ async function loadDirectoryData() {
 
 const getDirectoryData = computed(() => state.value.directoryData);
 
-const getFileList = computed(() => state.value.fileList);
+const getDirectoryDataHistory = computed(
+  () => state.value.directoryDataHistory
+);
 
 export const sharedState = {
   setDirectoryData,
   loadDirectoryData,
-  getDirectoryData,
   resetDirectoryData,
-  resetFileData,
-  setFileList,
-  getFileList,
+  setDirectoryDataHistory,
+  removeDirectoryDataHistory,
+  resetDirectoryDataHistory,
+  getDirectoryData,
+  getDirectoryDataHistory,
 };

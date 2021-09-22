@@ -3,69 +3,39 @@
     <File v-if="data.type === 'file'" :data="data"></File>
     <button
       class="flex items-center pr-1"
-      @click="isOpen = !isOpen"
-      @mousedown="getFolderContent(data.path, data.children.length)"
+      @click="getFolderContent(data.path, data.children)"
       v-else-if="data.type === 'directory'"
     >
-      <ChevronRightIcon
-        class="w-5 h-5 text-blue-500 transform"
-        :class="{ 'rotate-90': isOpen }"
-      />
-      <FolderIcon class="w-5 h-5 text-blue-500" />
-      <span class="pl-1 whitespace-nowrap">
+      <span class="material-icons text-accent w-5 h-5"> folder_open </span>
+      <span class="pl-2 whitespace-nowrap">
         {{ data.name }}
       </span>
     </button>
-    <section v-show="isOpen" class="ml-5">
-      <Directory
-        v-for="(child, index) in data.children"
-        :data="data.children[index]"
-        :key="index"
-      ></Directory>
-    </section>
   </div>
 </template>
 
-<script>
-import { FolderIcon, ChevronRightIcon } from "@heroicons/vue/solid";
-import { ref, toRef } from "@vue/reactivity";
-import File from "./File.vue";
+<script setup>
 import { config } from "../config";
 import axios from "axios";
+import { sharedState } from "../state/state";
 
-export default {
-  components: {
-    FolderIcon,
-    ChevronRightIcon,
-    File,
-  },
-  props: {
-    data: Object,
-    isOpen: Boolean,
-  },
-  setup(props) {
-    const defaultOpen = toRef(props, "isOpen");
-    var isOpen = ref(defaultOpen.value ?? false);
+const props = defineProps({
+  data: Object,
+});
 
-    async function getFolderContent(path, childs) {
-      console.log(path);
-      console.log(childs);
-      if (childs > 0) return;
-      try {
-        const url = `${config.baseUrl}/dir-structure/custom?path=${path}`;
-        const response = await axios.get(url);
-        // dirStructure.data = response.data;
-        /* FEATURE: display message if folder stays empty */
-        console.log(response.data);
-        props.data.children = response.data.children;
-      } catch (error) {
-        console.error(error);
-      }
+function openFolder() {
+  sharedState.setDirectoryData(directoryData);
+}
+async function getFolderContent(path, childs) {
+  if (childs.lenght > 0) sharedState.setDirectoryData(childs);
+  else {
+    try {
+      const url = `${config.baseUrl}/dir-structure/custom?path=${path}`;
+      const response = await axios.get(url);
+      sharedState.setDirectoryData(response.data);
+    } catch (error) {
+      console.error(error);
     }
-    return {
-      isOpen,
-      getFolderContent,
-    };
-  },
-};
+  }
+}
 </script>
