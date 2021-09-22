@@ -4,7 +4,7 @@ Voraussetzungen:
 - Docker  
 - bzw. NodeJS & NPM
   
-In [config.js](./src/config.js) kann URL des Servers verändert werden.
+In [config.js](./src/config.js) kann die URL des Servers verändert und die Tags spezifiziert werden.
 
 ## Benutzung Manuell
 
