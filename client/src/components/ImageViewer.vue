@@ -63,9 +63,11 @@
                 text-darkest
                 rounded-md
                 flex
-                items-center
+                items-center cursor-not-allowed
               "
               type="submit"
+              :disabled="loading"
+              :class="{ 'cursor-not-allowed': loading }"
             >
               <span class="material-icons mr-2"> save </span>
               <span>speichern</span>
@@ -106,6 +108,7 @@ let imgData = ref(null);
 let imgSize = ref({});
 const editMode = ref(false);
 const editUrl = ref("");
+const loading = ref(false);
 
 async function parseImageTags(url) {
   imgData.value = config.imgTags;
@@ -206,10 +209,13 @@ async function submitEdits(submitEvent) {
   /* send form values via query params e.g: /edit/artefaktId?param=value */
   try {
     const url = editUrl.value;
+    loading.value = true;
     const response = await axios.post(url, null, { params });
+    loading.value = false;
     console.log(response);
     editMode.value = false;
   } catch (error) {
+    loading.value = false;
     console.log(error);
   }
 }

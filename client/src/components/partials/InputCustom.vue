@@ -12,8 +12,7 @@
         status-border
       "
       :maxlength="inputMax"
-      v-model="inputContent"
-      @change="emit('change')"
+      v-model="currentValue"
     />
     <label :for="inputName" class="text-light pt-2">{{ inputTitle }}</label>
   </div>
@@ -29,42 +28,43 @@
         status-border
       "
       :maxlength="inputMax"
-      v-model="inputContent"
-      @change="emit('change')"
+      v-model="currentValue"
     />
     <label :for="inputName" class="text-light pt-2">{{ inputTitle }}</label>
   </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmit, ref, watch } from "@vue/runtime-core";
+import {
+  defineProps,
+  defineEmits,
+  ref,
+  watch,
+} from "@vue/runtime-core";
 
 const props = defineProps({
   inputName: String,
   inputTitle: String,
   inputMax: Number,
   inputType: { type: String, default: "text" },
-  inputContent: { type: String },
+  inputContent: { type: String, deafult: null },
 });
-
-const emit = defineEmit(["change"]);
+const emit = defineEmits(["change"]);
 
 const percentage = ref("0%");
 const statusBorderColor = ref("var(--accent)");
+const currentValue = ref(props.inputContent);
 
-/* watcher. syntax so strange da eine prop gewatched wird und keine ref. */
-watch(
-  () => props.inputContent,
-  (newVal) => {
-    composeInputBorder(newVal);
-    emit("change", {
-      content: newVal,
-      tag: props.inputName.slice(0, props.inputName.length - 3),
-      lang: props.inputName.slice(-2),
-    });
-  }
-);
-composeInputBorder(props.inputContent);
+watch(currentValue, (newVal) => {
+  composeInputBorder(newVal);
+  emit("change", {
+    content: newVal,
+    tag: props.inputName.slice(0, props.inputName.length - 3),
+    lang: props.inputName.slice(-2),
+  });
+});
+
+composeInputBorder(currentValue.value);
 function composeInputBorder(content) {
   let tempPercentage = Math.round((100 * content.length) / props.inputMax);
   percentage.value = `${tempPercentage}%`;
