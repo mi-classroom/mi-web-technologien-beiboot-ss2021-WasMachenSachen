@@ -63,7 +63,7 @@
                 text-darkest
                 rounded-md
                 flex
-                items-center cursor-not-allowed
+                items-center
               "
               type="submit"
               :disabled="loading"
