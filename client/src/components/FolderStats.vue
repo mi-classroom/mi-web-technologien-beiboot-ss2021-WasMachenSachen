@@ -15,7 +15,7 @@
         <span class="material-icons"> location_on </span>
         <span class="ml-2">{{
           directoryDataHistory[directoryDataHistory.length - 1].path.split(
-            /[\/,]+/
+            /[\/,\\]+/
           )[2]
         }}</span>
       </div>
@@ -24,7 +24,7 @@
           class="flex items-center"
           :href="`${config.baseUrl}/download/${
             directoryDataHistory[directoryDataHistory.length - 1].path.split(
-              /[\/,]+/
+              /[\/,\\]+/
             )[2]
           }`"
           target="_blank"
