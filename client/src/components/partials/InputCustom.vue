@@ -35,12 +35,7 @@
 </template>
 
 <script setup>
-import {
-  defineProps,
-  defineEmits,
-  ref,
-  watch,
-} from "@vue/runtime-core";
+import { defineProps, defineEmits, ref, watch } from "@vue/runtime-core";
 
 const props = defineProps({
   inputName: String,
@@ -54,6 +49,13 @@ const emit = defineEmits(["change"]);
 const percentage = ref("0%");
 const statusBorderColor = ref("var(--accent)");
 const currentValue = ref(props.inputContent);
+
+watch(
+  () => props.inputContent,
+  (newVal) => {
+    currentValue.value = newVal;
+  }
+);
 
 watch(currentValue, (newVal) => {
   composeInputBorder(newVal);
