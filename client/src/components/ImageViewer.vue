@@ -173,7 +173,7 @@ const isValidJSON = (str) => {
   }
 };
 function composeImageFolderPath(path) {
-  let newPath = path.split("/");
+  let newPath = path.split(/[\/,\\]+/);
   return newPath[2];
 }
 function getInputContent(tagName) {
