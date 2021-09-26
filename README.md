@@ -8,6 +8,9 @@ Als organisatorischen Rahmen für das Projekt nutzen wir GitHub Classroom. Inhal
 
 Empfohlene Benutzung über Docker [Compose](https://docs.docker.com/compose/reference/).
 
+---
+**Wichtig:** In diesem Repository sind keine Bilder enthalten. Für die Nutzung muss ein `data` Ordner im root Verzeichniss angelegt und mit Bilder bestückt werden.
+
 >Über die `.env`-Datei können individuelle Werte für den Server gesetzt werden. Näheres im [README](server/README.md) für den Server. Dafür kann die Beispieldaten [.example.env](server/example.env) in `.env` umbennant werden. Ohne diese wird auf die Standardparameter zurückgegriffen.
 
 Starten der Container:
