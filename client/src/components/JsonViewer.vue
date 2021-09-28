@@ -1,5 +1,5 @@
 <template>
-  <Json
+  <JsonViewerItem
     v-for="(item, key, index) in json"
     :name="key"
     :value="item"

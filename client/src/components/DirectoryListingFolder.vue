@@ -1,6 +1,6 @@
 <template>
   <div>
-    <File v-if="data.type === 'file'" :data="data"></File>
+    <DirectoryListingFile v-if="data.type === 'file'" :data="data"></DirectoryListingFile>
     <button
       class="flex items-center pr-1"
       @click="getFolderContent(data.path, data.children)"

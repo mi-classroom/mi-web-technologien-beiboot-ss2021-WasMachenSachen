@@ -41,11 +41,11 @@
       <span v-else class="h-5 block"></span>
     </div>
 
-    <Directory
+    <DirectoryListingFolder
       v-for="(child, index) in dirStructure.children"
       :key="index"
       :data="dirStructure.children[index]"
-    ></Directory>
+    ></DirectoryListingFolder>
   </div>
 </template>
 
